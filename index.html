@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <link rel="stylesheet" href="css/default.css">
+    <script src="lang/lan_en.js"></script>
+    <script src="data/data.js"></script>
+    <script src="script/workflow/model.js"></script>
+    <script src="script/workflow/view.js"></script>
+
+    <script src="lib/jquery.js"></script>
+    <script src="lib/underscore.js"></script>
+
+
+    <script>
+        var lang_type = "en";
+        window.onload = function(){
+            new workflow.view().init();
+
+        };
+
+    </script>
+</head>
+<body>
+<div id ="container">
+    <h3 class="center">Workflow</h3>
+    <section id="workflow">
+
+    </section>
+
+</div>
+
+<script type="text/html" id='workflowTmpl'>
+    <% _.each(data, function(item) { %>
+    <div class="column col-md-3"   data-id="<%- item.groupId %>">
+        <section ><%- lang[lang_type][item.langId] %></section>
+        <ul class="list">
+            <% _.each(item.items, function(data) { %>
+            <li contenteditable="false" class="item" draggable="true" data-id="<%- data.itemId %>"><%- data.text %></li>
+            <% }); %>
+        </ul>
+        <button class="addItem">+ Add</button>
+    </div>
+    <% }); %>
+</script>
+
+<script type="text/html" id="workflowItem">
+    <li contenteditable="true" draggable="true" data-id="<%- itemId %>"><%- text %></li>
+</script>
+
+</body>
+</html>
